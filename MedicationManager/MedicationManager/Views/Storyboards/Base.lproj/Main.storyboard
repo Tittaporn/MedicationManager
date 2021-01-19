@@ -34,8 +34,8 @@
                                                     <color key="textColor" systemColor="systemIndigoColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUc-NF-B0b">
-                                                    <rect key="frame" x="363" y="25" width="35" height="35"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUc-NF-B0b">
+                                                    <rect key="frame" x="363" y="30" width="35" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="CUc-NF-B0b" secondAttribute="height" multiplier="1:1" id="Tzb-Rm-rwc"/>
                                                         <constraint firstAttribute="height" constant="35" id="tN7-TK-AMg"/>
@@ -65,6 +65,7 @@
                                                 <constraint firstItem="CUc-NF-B0b" firstAttribute="leading" secondItem="ieQ-0b-qbQ" secondAttribute="trailing" constant="8" id="Uzs-GB-sMb"/>
                                                 <constraint firstAttribute="trailing" secondItem="CUc-NF-B0b" secondAttribute="trailing" constant="16" id="ew2-7c-EiD"/>
                                                 <constraint firstItem="ieQ-0b-qbQ" firstAttribute="top" secondItem="TPU-j2-Vq5" secondAttribute="bottom" constant="8" id="fdq-Gc-gDd"/>
+                                                <constraint firstItem="CUc-NF-B0b" firstAttribute="centerY" secondItem="DyI-uC-mee" secondAttribute="centerY" id="nLX-dh-RCc"/>
                                                 <constraint firstItem="ieQ-0b-qbQ" firstAttribute="leading" secondItem="DyI-uC-mee" secondAttribute="leading" constant="16" id="vLm-Y6-JhN"/>
                                                 <constraint firstAttribute="bottom" secondItem="ieQ-0b-qbQ" secondAttribute="bottom" constant="8" id="zZe-uw-Q98"/>
                                             </constraints>
