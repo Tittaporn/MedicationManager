@@ -12,6 +12,7 @@ class MedicationListViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var moodSurveyButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         // MedicationController.shared.fetchMedications() >> DO NOT NEED IT HERE, just call it at viewWillAppear
@@ -24,6 +25,22 @@ class MedicationListViewController: UIViewController {
         //The orders are very important. Here we need to fetch before reload it.
         MedicationController.shared.fetchMedications()
         tableView.reloadData()
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func moodSurveyButtonTapped(_ sender: UIButton) {
+        // This is coding for segue.
+        // We need to set up on storyBoard >> Storyboard ID == identifier of MoodSurveyViewController
+        guard let moodSurveyVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "moodSurveyViewController") as? MoodSurveyViewController else { return }
+        
+        moodSurveyVC.modalPresentationStyle = .fullScreen
+        
+        // assign the delegate, I wanna be your employee.
+        moodSurveyVC.delegate = self
+        
+        present(moodSurveyVC, animated: true, completion: nil)
+        
     }
     
     // MARK: - Navigation
@@ -73,6 +90,19 @@ extension MedicationListViewController: UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+          
+            // find the medication from the sections to delete
+            let medicationToDelete = MedicationController.shared.sections[indexPath.section][indexPath.row]
+
+            // using the deleteMedication(..) to delete from S.O.T. and Persistance store
+            MedicationController.shared.deleteMedication(medication: medicationToDelete)
+            
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
     // getting title for each section
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
@@ -81,6 +111,12 @@ extension MedicationListViewController: UITableViewDataSource {
             return "Taken"
         }
         
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.red
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.white
     }
     
 }
@@ -100,5 +136,18 @@ extension MedicationListViewController: MedicationTakenDelegate {
         
         // don't forget to reload data
         tableView.reloadData()
+    }
+}
+
+extension MedicationListViewController: MoodSurveyViewControllerDelegate {
+    func emojiSelected(emoji: String) {
+        
+        // Got the data
+        print("emoji in MedicationListViewController : \(emoji)")
+        
+        // Update the view. Display Emoji on the button.
+        moodSurveyButton.setTitle(emoji, for: .normal)
+        
+        
     }
 }

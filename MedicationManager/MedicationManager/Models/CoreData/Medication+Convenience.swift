@@ -13,10 +13,11 @@ extension Medication {
     // we modify the default init by using the  convenience init
     // Why @discardableResult ??
     // Using this init to location where the CoreDataStack.context
-    @discardableResult convenience init(name: String, timeOfDay: Date, context: NSManagedObjectContext = CoreDataStack.context) {
+    @discardableResult convenience init(name: String, timeOfDay: Date, id: String = UUID().uuidString, context: NSManagedObjectContext = CoreDataStack.context) {
         self.init(context: context) //self.init is calling from the default init
         self.name = name
         self.timeOfDay = timeOfDay
+        self.id = id
     }
     
     //  ___________________________________________________________________________

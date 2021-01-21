@@ -13,12 +13,14 @@ class MedicationController {
     // MARK: - Properties
     // Shared Instance
     static let shared = MedicationController()
+    let notificationScheduler = NotificationScheduler()
     
     // S.O.T
     //var medications: [Medication] = []
     var sections: [[Medication]] { [notTakenMeds, takenMeds] }
     var notTakenMeds: [Medication] = []
     var takenMeds: [Medication] = []
+    
     
     
     // Fetch Request
@@ -48,6 +50,10 @@ class MedicationController {
         // DO NOT NEED append to medications IN this case  >> medications.append(newMed)
         //Using CoreDataStack.saveContext() to save newMed and then we will fetch it from the  fetchMedication ()
         CoreDataStack.saveContext()
+        
+        // Create a contant for NotificationScheduler before using it.
+        // IN ORDER TO RUB THIS >> User need to give a permittion to use notification in  AppDelegate.swift
+        notificationScheduler.scheduleNotifications(medication: medication)
     }
     
     /* This line below should work same as the line up here ^.
@@ -91,6 +97,14 @@ class MedicationController {
         
         // Save in CoreData
         CoreDataStack.saveContext()
+        
+        
+        
+        // Cancel existing notification
+        notificationScheduler.cancelNotification(medication: medication)
+        
+        // Create the new notification
+        notificationScheduler.scheduleNotifications(medication: medication)
     }
     
     //______________________________________________________________________________
@@ -153,9 +167,28 @@ class MedicationController {
     // MARK: - DELETE
     // DELETE
     // TODO : TOMORROW
-    func deleteMedication (){
+    func deleteMedication (medication: Medication) {
+        
+        // find the index
+        if let index = notTakenMeds.firstIndex(of: medication) {
+            
+            // remove the object in that array
+            notTakenMeds.remove(at: index)
+            
+        } else if let index = takenMeds.firstIndex(of: medication) {
+            takenMeds.remove(at: index)
+    }
+        // delete from the persistance store
+        CoreDataStack.context.delete(medication)
+
+        // cancel notification
+        notificationScheduler.cancelNotification(medication: medication)
+
+        // and save it the persistance.
+        CoreDataStack.saveContext()
         
     }
+        
 }
 //______________________________________________________________________________________
 
