@@ -8,9 +8,7 @@
 import CoreData
 
 extension TakenDate {
-    
     // @discardableResult >> allow us to use TakenDate with out capture it >> TakenDate(...)
-    
     // need medication: Medication >> What it belong to??
     @discardableResult convenience init(date: Date, medication: Medication, context: NSManagedObjectContext = CoreDataStack.context) {
         self.init(context: context) 

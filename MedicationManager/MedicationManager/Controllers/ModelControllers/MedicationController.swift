@@ -21,8 +21,7 @@ class MedicationController {
     var notTakenMeds: [Medication] = []
     var takenMeds: [Medication] = []
     
-    
-    
+    // MARK: - Fetch Request
     // Fetch Request
     // private >> only for using to access only this class
     // lazy >> to prevent from the background runing for no reason, this will get called when it need it. Only run when it needed.
@@ -97,8 +96,6 @@ class MedicationController {
         
         // Save in CoreData
         CoreDataStack.saveContext()
-        
-        
         
         // Cancel existing notification
         notificationScheduler.cancelNotification(medication: medication)
@@ -177,18 +174,18 @@ class MedicationController {
             
         } else if let index = takenMeds.firstIndex(of: medication) {
             takenMeds.remove(at: index)
-    }
+        }
         // delete from the persistance store
         CoreDataStack.context.delete(medication)
-
+        
         // cancel notification
         notificationScheduler.cancelNotification(medication: medication)
-
+        
         // and save it the persistance.
         CoreDataStack.saveContext()
         
     }
-        
+    
 }
 //______________________________________________________________________________________
 

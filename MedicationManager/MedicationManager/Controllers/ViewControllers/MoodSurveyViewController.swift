@@ -21,8 +21,12 @@ class MoodSurveyViewController: UIViewController {
     // MARK: - Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        // Call NotificationCenter for Observer.
+        // MoodSurveyViewController is observer.
+        // NSNotification.Name("medicationReminderNotification") >> same name as AppDelegate
+        // selector is speacial type run an object c upder the hood.
+        // #selector(notificationObserved) require object c function
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationObserved), name: NSNotification.Name("medicationReminderNotification"), object: nil)
     }
     
     // MARK: - Actions
@@ -30,11 +34,10 @@ class MoodSurveyViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    
     // sender >> every time button was tapped. Each button has it own sender.
     @IBAction func emojiButtonTapped(_ sender: UIButton) {
         // if sender: Any >> HAVE NO Title.. >>> sender.titleLabel?.text XXX
-    
+        
         // tell my listViewController which emoji was selected.  || (button) was tapped.
         guard let emoji = sender.titleLabel?.text else { return }
         print(emoji)
@@ -42,15 +45,17 @@ class MoodSurveyViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    // MARK: - Notification Function
+    // using this funtion to run when notification working
+    @objc func notificationObserved() {
+        let bgColor = view.backgroundColor
+        view.backgroundColor = .red
+        
+        // using DispatchQueue.???
+        // 2 sec later it is going to  {...do something in the block....}
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.view.backgroundColor = bgColor
+            
+        }
+    }
 }

@@ -21,6 +21,8 @@
 		3624051125B610EA0096CF89 /* MedicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3624051025B610EA0096CF89 /* MedicationController.swift */; };
 		36368A4625B62FBF00113949 /* DateFormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36368A4525B62FBF00113949 /* DateFormatterExtension.swift */; };
 		3636FE0725B7414800476468 /* TakenDate+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3636FE0625B7414800476468 /* TakenDate+Convenience.swift */; };
+		3646905F25B9F0EA00B2EB37 /* MoodSurvey+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3646905E25B9F0EA00B2EB37 /* MoodSurvey+Convenience.swift */; };
+		3646906225B9F2DD00B2EB37 /* MoodSurveyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3646906125B9F2DD00B2EB37 /* MoodSurveyController.swift */; };
 		36E3820C25B89B60003A6B5F /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E3820B25B89B60003A6B5F /* NotificationScheduler.swift */; };
 		36E3820F25B8CE4B003A6B5F /* MoodSurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E3820E25B8CE4B003A6B5F /* MoodSurveyViewController.swift */; };
 /* End PBXBuildFile section */
@@ -42,6 +44,8 @@
 		3624051025B610EA0096CF89 /* MedicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationController.swift; sourceTree = "<group>"; };
 		36368A4525B62FBF00113949 /* DateFormatterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterExtension.swift; sourceTree = "<group>"; };
 		3636FE0625B7414800476468 /* TakenDate+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TakenDate+Convenience.swift"; sourceTree = "<group>"; };
+		3646905E25B9F0EA00B2EB37 /* MoodSurvey+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoodSurvey+Convenience.swift"; sourceTree = "<group>"; };
+		3646906125B9F2DD00B2EB37 /* MoodSurveyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodSurveyController.swift; sourceTree = "<group>"; };
 		36E3820B25B89B60003A6B5F /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		36E3820E25B8CE4B003A6B5F /* MoodSurveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodSurveyViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,6 +116,7 @@
 				362404F825B5FA2D0096CF89 /* CoreDataStack.swift */,
 				362404FB25B601720096CF89 /* Medication+Convenience.swift */,
 				3636FE0625B7414800476468 /* TakenDate+Convenience.swift */,
+				3646905E25B9F0EA00B2EB37 /* MoodSurvey+Convenience.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -157,6 +162,7 @@
 			children = (
 				3624051025B610EA0096CF89 /* MedicationController.swift */,
 				36E3820B25B89B60003A6B5F /* NotificationScheduler.swift */,
+				3646906125B9F2DD00B2EB37 /* MoodSurveyController.swift */,
 			);
 			path = ModelControllers;
 			sourceTree = "<group>";
@@ -251,6 +257,7 @@
 				33A61CAF258F2E6E00B62B2F /* AppDelegate.swift in Sources */,
 				36368A4625B62FBF00113949 /* DateFormatterExtension.swift in Sources */,
 				3624050925B60F6B0096CF89 /* MedicationListViewController.swift in Sources */,
+				3646905F25B9F0EA00B2EB37 /* MoodSurvey+Convenience.swift in Sources */,
 				36E3820C25B89B60003A6B5F /* NotificationScheduler.swift in Sources */,
 				33A61CB9258F2E6E00B62B2F /* MedicationManager.xcdatamodeld in Sources */,
 				33A61CB1258F2E6E00B62B2F /* SceneDelegate.swift in Sources */,
@@ -259,6 +266,7 @@
 				3624050D25B60F890096CF89 /* MedicationDetailViewController.swift in Sources */,
 				362404F925B5FA2D0096CF89 /* CoreDataStack.swift in Sources */,
 				3624051125B610EA0096CF89 /* MedicationController.swift in Sources */,
+				3646906225B9F2DD00B2EB37 /* MoodSurveyController.swift in Sources */,
 				3636FE0725B7414800476468 /* TakenDate+Convenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,7 +13,6 @@ protocol MedicationTakenDelegate: AnyObject {
     func medicationWasTakenTapped(wasTaken: Bool, medication: Medication)
 }
 
-
 class MedicationTableViewCell: UITableViewCell {
     
     // MARK: - Properties
@@ -61,15 +60,12 @@ class MedicationTableViewCell: UITableViewCell {
         medicationTimeLabel.text = DateFormatter.medicationTime.string(from:  medication.timeOfDay ?? Date())
         
         // Using Ternary Operator to use in SetImage
-        
         let image = wasTakenToday ? UIImage(systemName: "checkmark.square") : UIImage(systemName: "square")
-        
         
         //Using the hasTakenButton to setImage
         hasTakenButton.setImage(image, for: .normal)
         
         // Set tintColor for image
         hasTakenButton.tintColor = .systemIndigo
-        
     }
 }

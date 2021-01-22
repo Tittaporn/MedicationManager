@@ -22,6 +22,13 @@ class MedicationDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
+        
+        // Call NotificationCenter for Observer.
+        // MoodSurveyViewController is observer.
+        // NSNotification.Name("medicationReminderNotification") >> same name as AppDelegate
+        // selector is speacial type run an object c upder the hood.
+        // #selector(notificationObserved) require object c function
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationObserved), name: NSNotification.Name("medicationReminderNotification"), object: nil)
     }
     
     // MARK: - Actions
@@ -33,7 +40,6 @@ class MedicationDetailViewController: UIViewController {
             MedicationController.shared.updateMedication(medication: medication, name: name, timeOfDay: medicationDueDayPicker.date)
         } else { //if we don't have medication, we create the medication.
             MedicationController.shared.createMedication(name: name, timeOfDay: medicationDueDayPicker.date)
-            
         }
         
         navigationController?.popViewController(animated: true)
@@ -45,5 +51,18 @@ class MedicationDetailViewController: UIViewController {
         medicationNameLabel.text = medication.name
         //CoreDate true Date to optional under the hood.
         medicationDueDayPicker.date = medication.timeOfDay ?? Date()
+    }
+    
+    // MARK: - Notification Function
+    // using this funtion to run when notification working
+    @objc func notificationObserved() {
+        
+        let bgColor = view.backgroundColor
+        view.backgroundColor = .red
+        // using DispatchQueue.???
+        // 2 sec later it is going to  {...do something in the block....}
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.view.backgroundColor = bgColor
+        }
     }
 }

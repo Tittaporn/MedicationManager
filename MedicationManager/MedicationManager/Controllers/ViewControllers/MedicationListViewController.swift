@@ -18,6 +18,19 @@ class MedicationListViewController: UIViewController {
         // MedicationController.shared.fetchMedications() >> DO NOT NEED IT HERE, just call it at viewWillAppear
         tableView.delegate = self
         tableView.dataSource = self
+        
+        // DO NOT FORGET TO FETCH TO SHOW ON THE SCREEN
+        MoodSurveyController.shared.fetchMoodSurvey()
+        
+        // UPDATE TO THE BUTTON TO SHOW ON THE BUTTON
+        moodSurveyButton.setTitle(MoodSurveyController.shared.todayMoodSurvey?.emoji ?? "❔", for: .normal)
+        
+        // Call NotificationCenter for Observer.
+        // MoodSurveyViewController is observer.
+        // NSNotification.Name("medicationReminderNotification") >> same name as AppDelegate
+        // selector is speacial type run an object c upder the hood.
+        // #selector(notificationObserved) require object c function
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationObserved), name: NSNotification.Name("medicationReminderNotification"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,7 +41,6 @@ class MedicationListViewController: UIViewController {
     }
     
     // MARK: - Actions
-    
     @IBAction func moodSurveyButtonTapped(_ sender: UIButton) {
         // This is coding for segue.
         // We need to set up on storyBoard >> Storyboard ID == identifier of MoodSurveyViewController
@@ -40,7 +52,6 @@ class MedicationListViewController: UIViewController {
         moodSurveyVC.delegate = self
         
         present(moodSurveyVC, animated: true, completion: nil)
-        
     }
     
     // MARK: - Navigation
@@ -56,7 +67,9 @@ class MedicationListViewController: UIViewController {
 
 // MARK: - Extensions UITableViewDelegate and UITableViewDataSource
 extension MedicationListViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat(70.0)
+    }
 }
 
 extension MedicationListViewController: UITableViewDataSource {
@@ -64,7 +77,6 @@ extension MedicationListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return MedicationController.shared.sections.count //return 2 sections of medication
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -92,10 +104,10 @@ extension MedicationListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-          
+            
             // find the medication from the sections to delete
             let medicationToDelete = MedicationController.shared.sections[indexPath.section][indexPath.row]
-
+            
             // using the deleteMedication(..) to delete from S.O.T. and Persistance store
             MedicationController.shared.deleteMedication(medication: medicationToDelete)
             
@@ -106,24 +118,23 @@ extension MedicationListViewController: UITableViewDataSource {
     // getting title for each section
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "Not taken"
+            return "NOT Taken Medicine"
         } else {
-            return "Taken"
+            return "Taken Medicine"
         }
         
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        view.tintColor = UIColor.red
+        view.tintColor = UIColor.systemTeal
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.white
+        header.textLabel?.textColor = UIColor.blue
+        header.textLabel?.font = UIFont(name: "Apple Color Emoji", size: 20)
     }
-    
 }
 
 // MARK: - Extension MedicationTakenDelegate
 extension MedicationListViewController: MedicationTakenDelegate {
-    
     
     // confrom the protocol
     func medicationWasTakenTapped(wasTaken: Bool, medication: Medication) {
@@ -137,6 +148,18 @@ extension MedicationListViewController: MedicationTakenDelegate {
         // don't forget to reload data
         tableView.reloadData()
     }
+    
+    // using this funtion to run when notification working
+    @objc func notificationObserved() {
+        
+        let bgColor = tableView.backgroundColor
+        tableView.backgroundColor = .red
+        // using DispatchQueue.???
+        // 2 sec later it is going to  {...do something in the block....}
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.tableView.backgroundColor = bgColor
+        }
+    }
 }
 
 extension MedicationListViewController: MoodSurveyViewControllerDelegate {
@@ -145,9 +168,17 @@ extension MedicationListViewController: MoodSurveyViewControllerDelegate {
         // Got the data
         print("emoji in MedicationListViewController : \(emoji)")
         
+        // Using the func in ModelController
+        MoodSurveyController.shared.didTapEmoji(emoji: emoji)
+        
         // Update the view. Display Emoji on the button.
         moodSurveyButton.setTitle(emoji, for: .normal)
-        
-        
     }
 }
+
+/* Notification Observer
+ The Observer: The recipient which is waiting for the notification to be triggered, to execute whatever code you want it to.
+ The Notification: The actual notification that it is going to be fired whenever we intend the Observer to perform a certain action. And, we can have as many notifications as we want, all over the app.
+ 
+ https://medium.com/better-programming/ios-lets-implement-that-notification-observer-communication-pattern-fc513f61b33e
+ */
