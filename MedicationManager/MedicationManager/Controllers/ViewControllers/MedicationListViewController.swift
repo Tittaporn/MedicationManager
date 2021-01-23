@@ -26,7 +26,7 @@ class MedicationListViewController: UIViewController {
         moodSurveyButton.setTitle(MoodSurveyController.shared.todayMoodSurvey?.emoji ?? "❔", for: .normal)
         
         // Call NotificationCenter for Observer.
-        // MoodSurveyViewController is observer.
+        // MedicationListViewController is observer.
         // NSNotification.Name("medicationReminderNotification") >> same name as AppDelegate
         // selector is speacial type run an object c upder the hood.
         // #selector(notificationObserved) require object c function
@@ -154,10 +154,12 @@ extension MedicationListViewController: MedicationTakenDelegate {
         
         let bgColor = tableView.backgroundColor
         tableView.backgroundColor = .red
+        view.backgroundColor = .red
         // using DispatchQueue.???
         // 2 sec later it is going to  {...do something in the block....}
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.tableView.backgroundColor = bgColor
+            self.view.backgroundColor = bgColor
         }
     }
 }

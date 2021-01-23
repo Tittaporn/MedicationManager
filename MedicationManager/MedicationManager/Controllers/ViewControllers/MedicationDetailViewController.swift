@@ -24,7 +24,7 @@ class MedicationDetailViewController: UIViewController {
         updateViews()
         
         // Call NotificationCenter for Observer.
-        // MoodSurveyViewController is observer.
+        // MedicationDetailViewController is observer.
         // NSNotification.Name("medicationReminderNotification") >> same name as AppDelegate
         // selector is speacial type run an object c upder the hood.
         // #selector(notificationObserved) require object c function
